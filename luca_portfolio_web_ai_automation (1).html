@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luca — Web Developer & AI Automation Specialist</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            bg: '#05060B',
+                            card: '#0B0E17',
+                            border: '#1E243B',
+                            accent: '#6366F1',
+                            emerald: '#10B981',
+                            cyan: '#06B6D4'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #05060b;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+        /* Frameless, clean background code stream without any IDE headers */
+        .content-container {
+            background: transparent;
+        }
+        /* Solid dark opaque cards ensuring 100% text readability with zero clashing */
+        .glass-card {
+            background: rgba(8, 12, 24, 0.94);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(129, 140, 248, 0.22);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            background: rgba(12, 17, 33, 0.98);
+            border-color: rgba(251, 191, 36, 0.5);
+            box-shadow: 0 20px 45px -10px rgba(251, 191, 36, 0.2);
+        }
+        .section-header-pill {
+            background: rgba(8, 12, 24, 0.92);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.25rem 1.75rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+        .glow-badge {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+        }
+        .typing-cursor {
+            display: inline-block;
+            width: 9px;
+            height: 17px;
+            background: #fbbf24;
+            vertical-align: middle;
+            margin-left: 4px;
+            box-shadow: 0 0 12px #fbbf24;
+            animation: blink 0.65s infinite;
+        }
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0.15; }
+        }
+        .code-line-active {
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.22) 0%, rgba(16, 185, 129, 0.1) 70%, transparent 100%);
+            border-left: 3px solid #fbbf24;
+            text-shadow: 0 0 12px rgba(251, 191, 36, 0.65);
+        }
+        .code-stream-morph {
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s ease;
+        }
+        .code-stream-collapsed {
+            opacity: 0 !important;
+            transform: scale(0.94) translateY(-15px);
+            filter: blur(8px);
+        }
+        .thank-you-morph {
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05060b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E243B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #fbbf24;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-amber-400 selection:text-gray-950">
+
+    <!-- Unified Frameless Background Code Stream (Delicate opacity 0.22, perfectly behind content) -->
+    <div id="bg-code-wrapper" class="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none transition-opacity duration-500" style="opacity: 0.22;">
+        <div class="w-full h-full max-w-7xl mx-auto px-6 pt-24 pb-12 flex flex-col justify-between">
+            <div id="bg-code-stage" class="flex-1 flex flex-col justify-start overflow-hidden py-4 code-stream-morph">
+                <div id="bg-code-stream" class="font-mono text-xs sm:text-sm leading-[1.8] space-y-1.5 text-amber-300/70"></div>
+            </div>
+
+            <!-- Morph Target: Centered "Дякую за перегляд!" Banner at the very bottom -->
+            <div id="bg-thank-you-banner" class="absolute inset-0 flex flex-col items-center justify-center text-center px-6 opacity-0 scale-95 pointer-events-none thank-you-morph">
+                <div id="bg-morph-title" class="text-4xl sm:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-emerald-300 to-cyan-300 drop-shadow-[0_0_35px_rgba(16,185,129,0.5)]">
+                    Дякую за перегляд!
+                </div>
+                <p class="text-sm sm:text-base text-gray-300 mt-3 font-mono tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                    🚀 Turnkey Solutions & AI Automation Ready for Production
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ambient Background Glows -->
+    <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
+
+    <!-- Sticky Top Bar -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#07090f]/95 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <!-- Brand -->
+            <a href="#" class="flex items-center gap-2.5 group shrink-0">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center font-mono font-bold text-gray-950 shadow-lg shadow-cyan-500/25 group-hover:scale-105 transition shrink-0">
+                    L
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="font-bold tracking-tight text-white text-lg leading-none">Luca</span>
+                    <span class="hidden sm:inline-block text-[11px] font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-2.5 py-0.5 rounded-full leading-none">luca.dev</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links (No wrapping, shrink-0) -->
+            <nav class="hidden md:flex items-center gap-5 lg:gap-7 text-sm font-medium text-gray-300 shrink-0">
+                <a href="#projects" class="hover:text-white transition whitespace-nowrap" data-i18n="nav_projects">Проєкти</a>
+                <a href="#services" class="hover:text-white transition whitespace-nowrap" data-i18n="nav_services">Послуги під ключ</a>
+                <a href="#stack" class="hover:text-white transition whitespace-nowrap" data-i18n="nav_stack">Технології</a>
+                <a href="#estimator" class="hover:text-white transition whitespace-nowrap" data-i18n="nav_estimator">Калькулятор</a>
+            </nav>
+
+            <!-- Right Controls: Code Status, Inspect Toggle, Language Switcher, CTA -->
+            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                <!-- Live Code Status Pill -->
+                <div class="hidden lg:flex items-center gap-2 bg-[#12141F] border border-amber-500/40 px-2.5 py-1.5 rounded-xl font-mono text-xs shadow-inner whitespace-nowrap shrink-0">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse shrink-0"></span>
+                    <span id="scroll-lines-text" class="text-amber-300 font-bold">01/52</span>
+                    <span class="text-gray-600">|</span>
+                    <span id="scroll-percent-text" class="text-emerald-400 font-bold">0%</span>
+                </div>
+
+                <!-- Toggle Background Code Opacity -->
+                <button onclick="toggleBgCodeOpacity()" id="bg-opacity-btn" title="Перемкнути видимість фонового коду" class="flex items-center gap-1.5 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 px-2.5 py-1.5 rounded-xl text-xs font-mono text-amber-300 font-semibold transition whitespace-nowrap shrink-0">
+                    <i data-lucide="eye" class="w-3.5 h-3.5 shrink-0"></i>
+                    <span class="hidden 2xl:inline" data-i18n="btn_bg_code">Фоновий код</span>
+                </button>
+
+                <!-- Language Switcher -->
+                <div class="flex items-center bg-[#12141F] border border-white/10 rounded-xl p-1 shrink-0">
+                    <button id="lang-ua" onclick="setLanguage('ua')" class="px-2.5 py-1 text-xs font-mono font-semibold rounded-lg transition bg-cyan-500 text-gray-950">
+                        UA
+                    </button>
+                    <button id="lang-en" onclick="setLanguage('en')" class="px-2.5 py-1 text-xs font-mono font-semibold rounded-lg transition text-gray-400 hover:text-white">
+                        EN
+                    </button>
+                </div>
+
+                <a href="#estimator" class="hidden sm:inline-flex items-center gap-1.5 bg-white text-gray-950 hover:bg-cyan-50 font-semibold text-xs sm:text-sm px-3.5 py-2 rounded-xl transition shadow-sm whitespace-nowrap shrink-0">
+                    <span data-i18n="nav_cta">Замовити</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4 shrink-0"></i>
+                </a>
+            </div>
+        </div>
+        <!-- Thin Progress Bar -->
+        <div class="w-full h-[3px] bg-white/5">
+            <div id="scroll-progress-bar" class="h-full bg-gradient-to-r from-cyan-400 via-emerald-400 to-indigo-500 transition-all duration-75" style="width: 0%;"></div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-24 space-y-32 content-container">
+
+        <!-- HERO SECTION -->
+        <section class="pt-2 sm:pt-4">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-8 glass-card rounded-3xl p-8 sm:p-10 space-y-6">
+                    <!-- Availability Status Badge -->
+                    <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#070b14]/90 border border-emerald-500/40 text-emerald-300 text-xs font-mono glow-badge">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 -ml-4"></span>
+                        <span data-i18n="hero_badge">Доступний для фрилансу та гібридних проєктів (4/3)</span>
+                    </div>
+
+                    <!-- Main Title -->
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.12] text-white">
+                        <span data-i18n="hero_greeting">Привіт, я Luca</span>
+                        <span class="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-300 to-indigo-400 mt-1" data-i18n="hero_role">
+                            Веб-розробник та спеціаліст з AI-автоматизації
+                        </span>
+                    </h1>
+
+                    <!-- Subtitle -->
+                    <p class="text-base sm:text-lg text-gray-300 max-w-2xl leading-relaxed" data-i18n="hero_desc">
+                        Створюю не просто код чи картинку, а готові бізнес-рішення під ключ: сучасні лендінги, розумні Telegram-боти, парсери з OpenAI/Gemini API та автоматизацію рутинних процесів через Python та Make.
+                    </p>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="#projects" class="inline-flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-gray-950 font-semibold px-6 py-3.5 rounded-xl transition shadow-lg shadow-cyan-500/25">
+                            <i data-lucide="layers" class="w-4 h-4"></i>
+                            <span data-i18n="hero_btn_projects">Переглянути кейси</span>
+                        </a>
+                        <a href="#estimator" class="inline-flex items-center gap-2 glass-card hover:bg-white/5 text-gray-200 font-semibold px-6 py-3.5 rounded-xl transition">
+                            <i data-lucide="sliders" class="w-4 h-4 text-cyan-400"></i>
+                            <span data-i18n="hero_btn_calc">Зібрати рішення під ключ</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick Metrics -->
+                    <div class="grid grid-cols-3 gap-4 pt-4 max-w-lg border-t border-white/10">
+                        <div>
+                            <div class="text-2xl font-bold text-white font-mono">100%</div>
+                            <div class="text-xs text-gray-400" data-i18n="metric_1">Рішення під ключ</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-cyan-400 font-mono">AI + API</div>
+                            <div class="text-xs text-gray-400" data-i18n="metric_2">OpenAI / Gemini / Telethon</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-emerald-400 font-mono">UA / EN</div>
+                            <div class="text-xs text-gray-400" data-i18n="metric_3">Локальний та світовий ринок</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero Interactive Terminal Card -->
+                <div class="lg:col-span-4">
+                    <div class="glass-card rounded-3xl p-6 border border-cyan-500/30 relative overflow-hidden">
+                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                            </div>
+                            <span class="text-xs font-mono text-gray-400">luca_pipeline.py</span>
+                        </div>
+                        <div class="font-mono text-xs space-y-2.5 leading-relaxed">
+                            <div class="text-gray-400"><span class="text-indigo-400">from</span> luca_core <span class="text-indigo-400">import</span> Web, AI, Automation</div>
+                            <div class="text-gray-300">
+                                <span class="text-cyan-400">def</span> <span class="text-emerald-300">build_turnkey_solution</span>(client):
+                            </div>
+                            <div class="pl-4 text-gray-400">
+                                site = Web.create_landing(ui=<span class="text-amber-300">"Modern"</span>)
+                            </div>
+                            <div class="pl-4 text-gray-400">
+                                bot = AI.connect_telegram(llm=<span class="text-amber-300">"GPT-4o & Gemini"</span>)
+                            </div>
+                            <div class="pl-4 text-gray-400">
+                                pipeline = Automation.sync(site, bot, crm=<span class="text-indigo-300">True</span>)
+                            </div>
+                            <div class="pl-4 text-emerald-400">
+                                return pipeline.deploy(status=<span class="text-amber-300">"Ready to scale 🚀"</span>)
+                            </div>
+                        </div>
+                        <div class="mt-5 pt-4 border-t border-white/10 flex items-center justify-between text-xs">
+                            <span class="text-gray-400" data-i18n="terminal_loc">📍 Україна (Kyiv / Remote)</span>
+                            <span class="font-mono text-cyan-400">@Luca</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TURNKEY SERVICES SECTION -->
+        <section id="services" class="space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 section-header-pill">
+                <div>
+                    <span class="text-xs font-mono uppercase tracking-wider text-cyan-400" data-i18n="services_eyebrow">// Solution, not just code</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold text-white mt-1" data-i18n="services_title">Послуги «під ключ» для бізнесу</h2>
+                </div>
+                <p class="text-sm text-gray-300 max-w-md" data-i18n="services_subtitle">
+                    Замість наймати трьох окремих виконавців — ти отримуєш готовий працюючий механізм: інтерфейс + логіку + автоматизацію.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Service 1 -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
+                            <i data-lucide="layout-template" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white" data-i18n="srv1_title">Сайти + Автоматизація заявок</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed" data-i18n="srv1_desc">
+                            Розробка швидких адаптивних лендінгів та сайтів-вітрин з миттєвою відправкою замовлень у Telegram-бот, Google Sheets або CRM через вебхуки та Make/n8n.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-white/10 flex flex-wrap gap-2">
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300">HTML/CSS/JS</span>
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300">Webhooks</span>
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300">Make / n8n</span>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between border-cyan-500/40">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                            <i data-lucide="bot" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white" data-i18n="srv2_title">Telegram-боти та AI-парсери</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed" data-i18n="srv2_desc">
+                            Автоматичний моніторинг джерел (Telethon), розумний рерайт новин через OpenAI/Gemini API, накладання водяних знаків та автопостинг за розкладом на VPS.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-white/10 flex flex-wrap gap-2">
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300">Python</span>
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300">Telethon</span>
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300">OpenAI / Gemini</span>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                            <i data-lucide="cpu" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white" data-i18n="srv3_title">Кастомні скрипти та AI-інструменти</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed" data-i18n="srv3_desc">
+                            Десктопні утиліти на PySide6, автоматизація Google Ads за допомогою скриптів, обробка таблиць для E-commerce та комп'ютерний зір (OpenCV).
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-white/10 flex flex-wrap gap-2">
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300">PySide6</span>
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300">Google Ads API</span>
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300">OpenCV</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO CASE STUDIES SECTION (4 REAL PROJECTS) -->
+        <section id="projects" class="space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 section-header-pill">
+                <div>
+                    <span class="text-xs font-mono uppercase tracking-wider text-cyan-400" data-i18n="proj_eyebrow">// Problem → Solution → Result</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold text-white mt-1" data-i18n="proj_title">Реальні проєкти та кейси</h2>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-2" id="project-filters">
+                    <button onclick="filterProjects('all')" data-filter="all" class="filter-btn active px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium bg-cyan-500 text-gray-950 font-semibold transition" data-i18n="filter_all">Усі (4)</button>
+                    <button onclick="filterProjects('automation')" data-filter="automation" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium bg-white/5 text-gray-300 hover:text-white transition" data-i18n="filter_auto">Боти & Автоматизація</button>
+                    <button onclick="filterProjects('ai')" data-filter="ai" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium bg-white/5 text-gray-300 hover:text-white transition" data-i18n="filter_ai">Python & AI Apps</button>
+                    <button onclick="filterProjects('web')" data-filter="web" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium bg-white/5 text-gray-300 hover:text-white transition" data-i18n="filter_web">Веб & Ads Скрипти</button>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div id="projects-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Populated dynamically by JS -->
+            </div>
+        </section>
+
+        <!-- BENTO TECH STACK & WORKFLOW -->
+        <section id="stack" class="space-y-8">
+            <div class="section-header-pill">
+                <span class="text-xs font-mono uppercase tracking-wider text-emerald-400" data-i18n="stack_eyebrow">// Technical Arsenal</span>
+                <h2 class="text-2xl sm:text-4xl font-bold text-white mt-1" data-i18n="stack_title">Стек технологій та робочий підхід</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+                <!-- Bento 1: Python & AI Core -->
+                <div class="md:col-span-7 glass-card rounded-3xl p-6 sm:p-8 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-indigo-400 uppercase">Backend & Automation</span>
+                        <i data-lucide="terminal" class="w-5 h-5 text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white" data-i18n="bento1_title">Python, AI APIs та Автоматизація</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed" data-i18n="bento1_desc">
+                        Розробка асинхронних парсерів, інтеграція великих мовних моделей (OpenAI GPT-4o, Google Gemini 1.5 Flash), комп'ютерний зір та створення графічних інтерфейсів.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-mono">Python 3.11+</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-mono">Telethon / Aiogram</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-mono">OpenAI & Gemini API</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-mono">PySide6 (Qt)</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-mono">OpenCV & MediaPipe</span>
+                    </div>
+                </div>
+
+                <!-- Bento 2: No-Code / Low-Code -->
+                <div class="md:col-span-5 glass-card rounded-3xl p-6 sm:p-8 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-cyan-400 uppercase">Workflows & Infra</span>
+                        <i data-lucide="workflow" class="w-5 h-5 text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white" data-i18n="bento2_title">Інтеграції та Сервери</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed" data-i18n="bento2_desc">
+                        Зв'язування будь-яких сервісів між собою через REST API та Webhooks. Налаштування стабільної роботи ботів 24/7.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono">Make / n8n</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono">REST API / JSON</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono">Linux VPS / SSH</span>
+                    </div>
+                </div>
+
+                <!-- Bento 3: Web & Frontend -->
+                <div class="md:col-span-6 glass-card rounded-3xl p-6 sm:p-8 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-emerald-400 uppercase">Frontend & Ads Scripts</span>
+                        <i data-lucide="code" class="w-5 h-5 text-emerald-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white" data-i18n="bento3_title">Веб-розробка та Скрипти автоматизації</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed" data-i18n="bento3_desc">
+                        Проєктування структури лендінгів (wireframes), чиста адаптивна верстка на Tailwind CSS/JS та написання скриптів автоматизації Google Ads.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <span class="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono">HTML5 / CSS3 / Tailwind</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono">JavaScript (ES6+)</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono">Google Ads Scripts</span>
+                    </div>
+                </div>
+
+                <!-- Bento 4: Work Format -->
+                <div class="md:col-span-6 glass-card rounded-3xl p-6 sm:p-8 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-amber-400 uppercase">Work Ethics</span>
+                        <i data-lucide="clock" class="w-5 h-5 text-amber-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white" data-i18n="bento4_title">Формат співпраці та фокус</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed" data-i18n="bento4_desc">
+                        Працюю на результат без зриву дедлайнів. Відкритий як до проєктного фрилансу під ключ, так і до довгострокової співпраці в команді за гнучким графіком (4/3 або 9:00–16:00).
+                    </p>
+                    <div class="grid grid-cols-2 gap-3 pt-1 text-xs">
+                        <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                            <span class="text-gray-400 block" data-i18n="bento4_stat1_label">Освітній вектор:</span>
+                            <span class="text-white font-semibold" data-i18n="bento4_stat1_val">Tech Lyceum → CS / IT (EU)</span>
+                        </div>
+                        <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                            <span class="text-gray-400 block" data-i18n="bento4_stat2_label">Комунікація:</span>
+                            <span class="text-white font-semibold">UA / EN — Quick Reply</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE PROJECT ESTIMATOR & BRIEF GENERATOR -->
+        <section id="estimator" class="glass-card rounded-3xl p-6 sm:p-10 border border-cyan-500/30">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Left Column: Service Picker -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div>
+                        <span class="text-xs font-mono uppercase tracking-wider text-cyan-400" data-i18n="est_eyebrow">// Interactive Brief Builder</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1" data-i18n="est_title">Збери своє замовлення за 30 секунд</h2>
+                        <p class="text-sm text-gray-300 mt-1" data-i18n="est_subtitle">
+                            Обери потрібні модулі — система автоматично сформує готовий структурований бриф для відправки в Telegram або на пошту.
+                        </p>
+                    </div>
+
+                    <!-- Checkboxes Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="estimator-options">
+                        <label class="cursor-pointer flex items-start gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-500/50 transition">
+                            <input type="checkbox" value="landing" onchange="updateBrief()" class="mt-1 rounded bg-gray-900 border-gray-700 text-cyan-500 focus:ring-cyan-500" checked>
+                            <div>
+                                <div class="text-sm font-semibold text-white" data-i18n="opt_landing">Лендінг / Сайт-вітрина</div>
+                                <div class="text-xs text-gray-400" data-i18n="opt_landing_sub">Адаптивна верстка + сучасний UI</div>
+                            </div>
+                        </label>
+
+                        <label class="cursor-pointer flex items-start gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-500/50 transition">
+                            <input type="checkbox" value="tg_bot" onchange="updateBrief()" class="mt-1 rounded bg-gray-900 border-gray-700 text-cyan-500 focus:ring-cyan-500" checked>
+                            <div>
+                                <div class="text-sm font-semibold text-white" data-i18n="opt_tg">Telegram-бот / Парсер</div>
+                                <div class="text-xs text-gray-400" data-i18n="opt_tg_sub">Прийом заявок, Telethon або автопостинг</div>
+                            </div>
+                        </label>
+
+                        <label class="cursor-pointer flex items-start gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-500/50 transition">
+                            <input type="checkbox" value="ai_llm" onchange="updateBrief()" class="mt-1 rounded bg-gray-900 border-gray-700 text-cyan-500 focus:ring-cyan-500">
+                            <div>
+                                <div class="text-sm font-semibold text-white" data-i18n="opt_ai">Інтеграція OpenAI / Gemini</div>
+                                <div class="text-xs text-gray-400" data-i18n="opt_ai_sub">AI-рерайт тексту, аналіз або чат-асистент</div>
+                            </div>
+                        </label>
+
+                        <label class="cursor-pointer flex items-start gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-500/50 transition">
+                            <input type="checkbox" value="make_crm" onchange="updateBrief()" class="mt-1 rounded bg-gray-900 border-gray-700 text-cyan-500 focus:ring-cyan-500">
+                            <div>
+                                <div class="text-sm font-semibold text-white" data-i18n="opt_make">Автоматизація Make / API</div>
+                                <div class="text-xs text-gray-400" data-i18n="opt_make_sub">Зв'язка сайту з таблицями, CRM та месенджером</div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Custom Note Input -->
+                    <div class="space-y-2">
+                        <label class="text-xs font-mono text-gray-400 uppercase" data-i18n="est_note_label">Коротко про задачу або нішу (необов'язково):</label>
+                        <input id="client-note" type="text" oninput="updateBrief()" placeholder="Наприклад: Кав'ярня у Києві, потрібен прийом замовлень у Telegram..." class="w-full px-4 py-3 rounded-2xl bg-[#0a0d14] border border-white/15 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500">
+                    </div>
+                </div>
+
+                <!-- Right Column: Generated Brief Output -->
+                <div class="lg:col-span-5 bg-[#0a0d14] rounded-3xl p-6 border border-white/10 space-y-5">
+                    <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                        <span class="text-xs font-mono text-gray-400" data-i18n="est_preview_title">Готовий бриф для Luca:</span>
+                        <span id="est-time-badge" class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md">~3–7 days</span>
+                    </div>
+
+                    <pre id="brief-output" class="text-xs font-mono text-gray-300 whitespace-pre-wrap bg-white/[0.02] p-4 rounded-2xl border border-white/5 leading-relaxed"></pre>
+
+                    <!-- Copy & Direct Contact Buttons -->
+                    <div class="space-y-3 pt-1">
+                        <button onclick="copyBrief()" id="copy-btn" class="w-full flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-gray-950 font-semibold text-sm py-3 px-5 rounded-2xl transition shadow-lg shadow-cyan-500/20">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                            <span data-i18n="btn_copy_brief">Скопіювати бриф для відправки</span>
+                        </button>
+
+                        <div id="copy-toast" class="hidden text-center text-xs font-mono text-emerald-400 py-1">
+                            ✓ Бриф скопійовано в буфер обміну!
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 pt-2">
+                            <a href="https://t.me/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-gray-200 transition">
+                                <i data-lucide="send" class="w-3.5 h-3.5 text-cyan-400"></i>
+                                <span>Telegram</span>
+                            </a>
+                            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-gray-200 transition">
+                                <i data-lucide="github" class="w-3.5 h-3.5 text-gray-300"></i>
+                                <span>GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Finale Spacer for Fireworks & Background Code Morph -->
+        <div class="h-[40vh] relative flex items-center justify-center pointer-events-none" aria-hidden="true">
+            <canvas id="fireworks-canvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-white/10 py-8 text-center text-xs text-gray-400 bg-[#07090f]/95">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-white">Luca</span>
+                <span>— Web & AI Automation Portfolio</span>
+            </div>
+            <div data-i18n="footer_rights">
+                Створено з фокусом на чисту архітектуру та реальний результат для бізнесу.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Application Script -->
+    <script>
+        let currentLang = 'ua';
+        let currentFilter = 'all';
+        let bgBoosted = false;
+        let isFinaleReached = false;
+
+        const allCodeLines = [
+            "# =======================================================",
+            "# [01/04] LUCA CORE: INITIALIZING AI & WEB PIPELINE",
+            "# =======================================================",
+            "import asyncio",
+            "from telethon import TelegramClient, events",
+            "from openai import AsyncOpenAI",
+            "import google.generativeai as genai",
+            "import cv2, mediapipe as mp",
+            "from pydantic import BaseModel",
+            "",
+            "class LucaPortfolioEngine:",
+            "    def __init__(self):",
+            "        self.developer = 'Luca'",
+            "        self.mode = 'Turnkey Web & AI Automation'",
+            "        self.schedule = 'Freelance & Hybrid (4/3)'",
+            "        self.languages = ['Ukrainian', 'English']",
+            "",
+            "    # ---------------------------------------------------",
+            "    # [02/04] MODULE: TELEGRAM AI NEWS AGGREGATOR",
+            "    # ---------------------------------------------------",
+            "    async def run_kyiv_news_bot(self, raw_post):",
+            "        ai_text = await AsyncOpenAI().chat.rewrite(raw_post)",
+            "        stamped_media = self.apply_watermark(ai_text.media)",
+            "        await self.publish_to_telegram('@kyiv_news_bot', stamped_media)",
+            "        return {'status': 'PUBLISHED_24_7', 'vps': 'Linux_OK'}",
+            "",
+            "    # ---------------------------------------------------",
+            "    # [03/04] MODULE: MULTI-LLM GUI & POSTURE GUARD",
+            "    # ---------------------------------------------------",
+            "    def collaborate_llms_gui(self, task_spec: str):",
+            "        draft = genai.GenerativeModel('gemini-1.5-flash').generate(task_spec)",
+            "        validated = AsyncOpenAI(model='gpt-4o').verify_schema(draft)",
+            "        return validated.export_pyside6_window()",
+            "",
+            "    def monitor_posture_opencv(self, webcam_frame):",
+            "        pose = mp.solutions.pose.process(webcam_frame)",
+            "        if pose.is_slouching(threshold=0.18):",
+            "            self.send_desktop_notification('Keep your back straight!')",
+            "",
+            "    # ---------------------------------------------------",
+            "    # [04/04] MODULE: RUBKA-MOYA WEB & GOOGLE ADS API",
+            "    # ---------------------------------------------------",
+            "    async def sync_landing_and_ads(self, client_lead):",
+            "        await self.trigger_make_webhook('https://hook.eu2.make.com/luca', client_lead)",
+            "        clean_ads = self.filter_negative_keywords(client_lead.search_query)",
+            "        return {'conversion': 'HIGH', 'ad_waste': '0%'}",
+            "",
+            "# =======================================================",
+            "# [FINALE] EXECUTING FINAL PORTFOLIO COMPLETION TRIGGER",
+            "# =======================================================",
+            "def render_thank_you_banner(scroll_pct=100):",
+            "    print('>>> [200 OK] УСІ 52 РЯДКИ КОДУ ВИКОНАНО УСПІШНО!')",
+            "    return '🚀 ДЯКУЮ ЗА ПЕРЕГЛЯД! ГОТОВИЙ ДО СПІВПРАЦІ! / THANKS FOR WATCHING!'"
+        ];
+
+        function highlightLine(text) {
+            if (!text) return '&nbsp;';
+            const escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            if (escaped.trim().startsWith('#')) {
+                return `<span class="text-amber-300 font-semibold">${escaped}</span>`;
+            }
+            return escaped
+                .replace(/('.*?'|".*?")/g, '<span class="text-emerald-300 font-semibold">$1</span>')
+                .replace(/\b(import|from|class|def|async|await|return|if|print)\b/g, '<span class="text-amber-400 font-bold">$1</span>')
+                .replace(/\b(self|True|False|LucaPortfolioEngine)\b/g, '<span class="text-cyan-300 font-semibold">$1</span>');
+        }
+
+        function toggleBgCodeOpacity() {
+            const wrapper = document.getElementById('bg-code-wrapper');
+            const btn = document.getElementById('bg-opacity-btn');
+            bgBoosted = !bgBoosted;
+            if (bgBoosted) {
+                wrapper.style.opacity = '0.85';
+                btn.className = "flex items-center gap-1.5 bg-amber-400 text-gray-950 font-bold px-2.5 py-1.5 rounded-xl text-xs font-mono transition shadow-lg shadow-amber-400/30 whitespace-nowrap shrink-0";
+            } else {
+                wrapper.style.opacity = isFinaleReached ? '0.9' : '0.22';
+                btn.className = "flex items-center gap-1.5 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 px-2.5 py-1.5 rounded-xl text-xs font-mono text-amber-300 font-semibold transition whitespace-nowrap shrink-0";
+            }
+        }
+
+        const translations = {
+            ua: {
+                nav_projects: "Проєкти",
+                nav_services: "Послуги під ключ",
+                nav_stack: "Технології",
+                nav_estimator: "Калькулятор",
+                nav_cta: "Замовити",
+                btn_bg_code: "Фоновий код",
+                hero_badge: "Доступний для фрилансу та гібридних проєктів (4/3)",
+                hero_greeting: "Привіт, я Luca",
+                hero_role: "Веб-розробник та спеціаліст з AI-автоматизації",
+                hero_desc: "Створюю не просто код чи картинку, а готові бізнес-рішення під ключ: сучасні лендінги, розумні Telegram-боти, парсери з OpenAI/Gemini API та автоматизацію рутинних процесів через Python та Make.",
+                hero_btn_projects: "Переглянути кейси",
+                hero_btn_calc: "Зібрати рішення під ключ",
+                metric_1: "Рішення під ключ",
+                metric_2: "OpenAI / Gemini / Telethon",
+                metric_3: "Локальний та світовий ринок",
+                terminal_loc: "📍 Україна (Kyiv / Remote)",
+                services_eyebrow: "// Solution, not just code",
+                services_title: "Послуги «під ключ» для бізнесу",
+                services_subtitle: "Замість наймати трьох окремих виконавців — ти отримуєш готовий працюючий механізм: інтерфейс + логіку + автоматизацію.",
+                srv1_title: "Сайти + Автоматизація заявок",
+                srv1_desc: "Розробка швидких адаптивних лендінгів та сайтів-вітрин з миттєвою відправкою замовлень у Telegram-бот, Google Sheets або CRM через вебхуки та Make/n8n.",
+                srv2_title: "Telegram-боти та AI-парсери",
+                srv2_desc: "Автоматичний моніторинг джерел (Telethon), розумний рерайт новин через OpenAI/Gemini API, накладання водяних знаків та автопостинг за розкладом на VPS.",
+                srv3_title: "Кастомні скрипти та AI-інструменти",
+                srv3_desc: "Десктопні утиліти на PySide6, автоматизація Google Ads за допомогою скриптів, обробка таблиць для E-commerce та комп'ютерний зір (OpenCV).",
+                proj_eyebrow: "// Problem → Solution → Result",
+                proj_title: "Реальні проєкти та кейси",
+                filter_all: "Усі (4)",
+                filter_auto: "Боти & Автоматизація",
+                filter_ai: "Python & AI Apps",
+                filter_web: "Веб & Ads Скрипти",
+                stack_eyebrow: "// Technical Arsenal",
+                stack_title: "Стек технологій та робочий підхід",
+                bento1_title: "Python, AI APIs та Автоматизація",
+                bento1_desc: "Розробка асинхронних парсерів, інтеграція великих мовних моделей (OpenAI GPT-4o, Google Gemini 1.5 Flash), комп'ютерний зір та створення графічних інтерфейсів.",
+                bento2_title: "Інтеграції та Сервери",
+                bento2_desc: "Зв'язування будь-яких сервісів між собою через REST API та Webhooks. Налаштування стабільної роботи ботів 24/7.",
+                bento3_title: "Веб-розробка та Скрипти автоматизації",
+                bento3_desc: "Проєктування структури лендінгів (wireframes), чиста адаптивна верстка на Tailwind CSS/JS та написання скриптів автоматизації Google Ads.",
+                bento4_title: "Формат співпраці та фокус",
+                bento4_desc: "Працюю на результат без зриву дедлайнів. Відкритий як до проєктного фрилансу під ключ, так і до довгострокової співпраці в команді за гнучким графіком (4/3 або 9:00–16:00).",
+                bento4_stat1_label: "Освітній вектор:",
+                bento4_stat1_val: "Tech Lyceum → CS / IT (EU)",
+                bento4_stat2_label: "Комунікація:",
+                est_eyebrow: "// Interactive Brief Builder",
+                est_title: "Збери своє замовлення за 30 секунд",
+                est_subtitle: "Обери потрібні модулі — система автоматично сформує готовий структурований бриф для відправки в Telegram або на пошту.",
+                opt_landing: "Лендінг / Сайт-вітрина",
+                opt_landing_sub: "Адаптивна верстка + сучасний UI",
+                opt_tg: "Telegram-бот / Парсер",
+                opt_tg_sub: "Прийом заявок, Telethon або автопостинг",
+                opt_ai: "Інтеграція OpenAI / Gemini",
+                opt_ai_sub: "AI-рерайт тексту, аналіз або чат-асистент",
+                opt_make: "Автоматизація Make / API",
+                opt_make_sub: "Зв'язка сайту з таблицями, CRM та месенджером",
+                est_note_label: "Коротко про задачу або нішу (необов'язково):",
+                est_preview_title: "Готовий бриф для Luca:",
+                btn_copy_brief: "Скопіювати бриф для відправки",
+                footer_rights: "Створено з фокусом на чисту архітектуру та реальний результат для бізнесу.",
+                label_problem: "Задача:",
+                label_solution: "Рішення:",
+                label_result: "Результат:"
+            },
+            en: {
+                nav_projects: "Projects",
+                nav_services: "Turnkey Services",
+                nav_stack: "Tech Stack",
+                nav_estimator: "Estimator",
+                nav_cta: "Hire Me",
+                btn_bg_code: "BG Code",
+                hero_badge: "Available for freelance & hybrid 4/3 projects",
+                hero_greeting: "Hi, I'm Luca",
+                hero_role: "Web Developer & AI Automation Specialist",
+                hero_desc: "I deliver complete turnkey business solutions rather than isolated code snippets: modern landing pages, smart Telegram bots, OpenAI/Gemini parsers, and end-to-end workflow automation with Python & Make.",
+                hero_btn_projects: "Explore Case Studies",
+                hero_btn_calc: "Build Turnkey Solution",
+                metric_1: "Turnkey Delivery",
+                metric_2: "OpenAI / Gemini / Telethon",
+                metric_3: "Local & Global Clients",
+                terminal_loc: "📍 Ukraine (Kyiv / Remote)",
+                services_eyebrow: "// Solution, not just code",
+                services_title: "Turnkey Business Services",
+                services_subtitle: "Instead of hiring three separate freelancers, you get one cohesive system: sleek frontend + backend logic + smart automation.",
+                srv1_title: "Landing Pages + Lead Automation",
+                srv1_desc: "Responsive websites and product showcases connected directly to your Telegram bot, Google Sheets, or CRM via Webhooks and Make/n8n.",
+                srv2_title: "Telegram Bots & AI News Parsers",
+                srv2_desc: "Automated source monitoring (Telethon), intelligent AI rewriting via OpenAI/Gemini APIs, custom media watermarking, and 24/7 VPS deployment.",
+                srv3_title: "Custom Python Apps & Ads Scripts",
+                srv3_desc: "PySide6 desktop tools, Google Ads API automation scripts, e-commerce data processing, and real-time OpenCV computer vision apps.",
+                proj_eyebrow: "// Problem → Solution → Result",
+                proj_title: "Featured Projects & Case Studies",
+                filter_all: "All (4)",
+                filter_auto: "Bots & Automation",
+                filter_ai: "Python & AI Apps",
+                filter_web: "Web & Ads Scripts",
+                stack_eyebrow: "// Technical Arsenal",
+                stack_title: "Tech Stack & Workflow Philosophy",
+                bento1_title: "Python, AI APIs & Automation",
+                bento1_desc: "Building asynchronous parsers, integrating LLM APIs (OpenAI GPT-4o, Google Gemini 1.5 Flash), computer vision pipelines, and desktop GUIs.",
+                bento2_title: "Workflows & Cloud Deployment",
+                bento2_desc: "Connecting web services via REST APIs and Webhooks. Deploying resilient 24/7 bots on Linux VPS with proxy routing.",
+                bento3_title: "Web Development & Ads Automation",
+                bento3_desc: "High-converting landing page wireframes, clean responsive HTML/CSS/JS code, and custom Google Ads automation scripts.",
+                bento4_title: "Work Format & Reliability",
+                bento4_desc: "Focused on clear communication and meeting deadlines. Available for turnkey freelance orders and part-time/hybrid team roles (4/3 schedule or 9:00–16:00).",
+                bento4_stat1_label: "Education Path:",
+                bento4_stat1_val: "Tech Lyceum → CS / IT (EU)",
+                bento4_stat2_label: "Communication:",
+                est_eyebrow: "// Interactive Brief Builder",
+                est_title: "Configure Your Project in 30 Seconds",
+                est_subtitle: "Select the modules you need — the tool will automatically generate a structured project brief ready to send via Telegram or Email.",
+                opt_landing: "Landing Page / Web Showcase",
+                opt_landing_sub: "Responsive layout + modern UI/UX",
+                opt_tg: "Telegram Bot / Parser",
+                opt_tg_sub: "Lead notifications, Telethon or auto-posting",
+                opt_ai: "OpenAI / Gemini Integration",
+                opt_ai_sub: "AI text rewriting, analysis or smart assistant",
+                opt_make: "Make / API Workflow Automation",
+                opt_make_sub: "Sync website forms with CRM, Sheets & Telegram",
+                est_note_label: "Short note about your business or task (optional):",
+                est_preview_title: "Ready-to-send Brief for Luca:",
+                btn_copy_brief: "Copy Project Brief",
+                footer_rights: "Built with a focus on clean architecture and measurable business value.",
+                label_problem: "Problem:",
+                label_solution: "Solution:",
+                label_result: "Result:"
+            }
+        };
+
+        const projectsData = [
+            {
+                id: "tg-ai-news",
+                category: "automation",
+                badge: "Telegram + AI Parser",
+                icon: "bot",
+                title: { ua: "Telegram AI News Aggregator (kyiv_news_bot)", en: "Telegram AI News Aggregator (kyiv_news_bot)" },
+                problem: { ua: "Ручний моніторинг десятків новинних каналів, рерайт тексту та оформлення постів займали багато часу й затримували публікацію актуальних новин.", en: "Manual monitoring of multiple news channels, text rewriting, and media formatting took hours daily and delayed urgent publications." },
+                solution: { ua: "Розробив асинхронного бота на Python (Telethon), який парсить джерела в реальному часі, робить розумний рерайт через OpenAI/Gemini API, накладає водяні знаки та публікує пости у цільовий канал.", en: "Built an asynchronous Python (Telethon) bot that monitors sources in real time, rewrites content via OpenAI/Gemini APIs, applies watermarks, and auto-publishes to the target channel." },
+                result: { ua: "Повністю автономна робота новинного каналу 24/7 на Linux VPS із фільтрацією дублів та інтеграцією з Make.", en: "100% autonomous 24/7 news pipeline deployed on a Linux VPS with duplicate filtering and Make webhook integration." },
+                stack: ["Python", "Telethon", "OpenAI API", "Make", "Linux VPS"]
+            },
+            {
+                id: "coding-agent-gui",
+                category: "ai",
+                badge: "PySide6 + Multi-LLM",
+                icon: "cpu",
+                title: { ua: "Coding Agent GUI — Десктопний хаб для GPT-4o та Gemini", en: "Coding Agent GUI — Multi-LLM Desktop Hub" },
+                problem: { ua: "Під час генерації великих програмних модулів одна мовна модель може допускати логічні помилки, які доводиться вручну перевіряти в іншому чаті.", en: "When generating complex code modules, relying on a single LLM often requires manual cross-checking and debugging across separate chat windows." },
+                solution: { ua: "Створив десктопний додаток на Python (PySide6 + Pydantic), де GPT-4o та Gemini 1.5 Flash працюють у зв'язку: одна модель генерує архітектуру й код, а інша проводить автоматичне рев'ю.", en: "Developed a Python desktop application (PySide6 + Pydantic) where GPT-4o and Gemini 1.5 Flash collaborate automatically: one writes code while the second validates logic and schemas." },
+                result: { ua: "Прискорення написання та перевірки коду в єдиному зручному вікні з валідацією JSON-відповідей.", en: "Faster code prototyping and automated peer-review inside a unified desktop workspace with strict Pydantic validation." },
+                stack: ["Python", "PySide6 (Qt)", "GPT-4o API", "Gemini 1.5", "Pydantic"]
+            },
+            {
+                id: "posture-guard",
+                category: "ai",
+                badge: "Computer Vision App",
+                icon: "scan-face",
+                title: { ua: "PostureGuard — AI-моніторинг постави за ПК", en: "PostureGuard — AI Computer Vision App" },
+                problem: { ua: "Тривала робота за комп'ютером призводить до сутулості та болю в спині, бо людина не помічає, як змінюється її положення перед монітором.", en: "Long coding and study sessions lead to slouching and back strain because users don't notice when their posture degrades." },
+                solution: { ua: "Написав десктопну програму з використанням OpenCV та MediaPipe, яка через вебкамеру в реальному часі відстежує ключові точки плечей і голови та надсилає м'яке сповіщення при порушенні постави.", en: "Created a real-time computer vision desktop app with Python, OpenCV, and MediaPipe that tracks shoulder/head landmarks via webcam and triggers smart posture alerts." },
+                result: { ua: "Працюючий локальний AI-трекер із графічним інтерфейсом та калібруванням під користувача без відправки відео в мережу.", en: "Privacy-first local AI posture assistant with custom calibration and low CPU overhead during work sessions." },
+                stack: ["Python", "OpenCV", "MediaPipe", "PySide6"]
+            },
+            {
+                id: "rubka-moya-web",
+                category: "web",
+                badge: "Web UI + Google Ads API",
+                icon: "globe",
+                title: { ua: "Rubka-Moya — Проєктування сайту та Google Ads автоматизація", en: "Rubka-Moya — Web Wireframes & Google Ads Automation" },
+                problem: { ua: "Комерційному проєкту була потрібна чітка структура лендінгу для конверсії трафіку та автоматизація рутинного керування рекламними кампаніями Google Ads.", en: "A commercial project needed a high-converting landing page wireframe structure alongside automated management of Google Ads campaigns." },
+                solution: { ua: "Спроєктував архітектуру та UI/UX-прототип сайту й написав спеціалізовані скрипти автоматизації Google Ads для оптимізації ставок і мінус-слів.", en: "Designed the complete UI/UX wireframe architecture for the site and wrote custom Google Ads automation scripts to optimize bids and filter negative keywords." },
+                result: { ua: "Зрозуміла структура сторінки під запуск продажів та економія рекламного бюджету завдяки програмній фільтрації трафіку.", en: "Clear conversion-oriented web structure paired with automated ad budget protection." },
+                stack: ["HTML/CSS/JS", "UI/UX Wireframe", "Google Ads Scripts", "E-commerce"]
+            }
+        ];
+
+        function renderProjects() {
+            const grid = document.getElementById('projects-grid');
+            const t = translations[currentLang];
+            const filtered = currentFilter === 'all' ? projectsData : projectsData.filter(p => p.category === currentFilter);
+
+            grid.innerHTML = filtered.map(proj => `
+                <article class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-5">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300">
+                                <i data-lucide="${proj.icon}" class="w-3.5 h-3.5"></i>
+                                ${proj.badge}
+                            </span>
+                            <span class="text-xs font-mono text-gray-500">#${proj.id}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white leading-snug">${proj.title[currentLang]}</h3>
+                        <div class="space-y-2.5 text-sm">
+                            <div class="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5">
+                                <span class="font-mono text-xs text-rose-400 font-semibold block mb-1">${t.label_problem}</span>
+                                <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">${proj.problem[currentLang]}</p>
+                            </div>
+                            <div class="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5">
+                                <span class="font-mono text-xs text-amber-400 font-semibold block mb-1">${t.label_solution}</span>
+                                <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">${proj.solution[currentLang]}</p>
+                            </div>
+                            <div class="p-3.5 rounded-2xl bg-emerald-500/[0.07] border border-emerald-500/20">
+                                <span class="font-mono text-xs text-emerald-400 font-semibold block mb-1">${t.label_result}</span>
+                                <p class="text-gray-200 text-xs sm:text-sm leading-relaxed">${proj.result[currentLang]}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-white/10 flex flex-wrap gap-1.5">
+                        ${proj.stack.map(tech => `<span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/5">${tech}</span>`).join('')}
+                    </div>
+                </article>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function filterProjects(category) {
+            currentFilter = category;
+            document.querySelectorAll('#project-filters .filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-filter') === category) {
+                    btn.className = "filter-btn active px-3.5 py-1.5 rounded-xl text-xs font-mono font-semibold bg-amber-400 text-gray-950 transition";
+                } else {
+                    btn.className = "filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium bg-white/5 text-gray-300 hover:text-white transition";
+                }
+            });
+            renderProjects();
+        }
+
+        function updateBrief() {
+            const checked = Array.from(document.querySelectorAll('#estimator-options input[type="checkbox"]:checked'));
+            const note = document.getElementById('client-note').value.trim();
+            const moduleNames = {
+                ua: {
+                    landing: "• Адаптивний лендінг / сайт-вітрина",
+                    tg_bot: "• Telegram-бот / парсер (Python / Telethon)",
+                    ai_llm: "• Інтеграція AI (OpenAI GPT-4o / Gemini API)",
+                    make_crm: "• Сценарій автоматизації Make / Webhooks / CRM"
+                },
+                en: {
+                    landing: "• Responsive Landing Page / Web Showcase",
+                    tg_bot: "• Telegram Bot / Parser (Python / Telethon)",
+                    ai_llm: "• AI Integration (OpenAI GPT-4o / Gemini API)",
+                    make_crm: "• Make / Webhooks / CRM Automation Pipeline"
+                }
+            };
+            const selectedLines = checked.map(cb => moduleNames[currentLang][cb.value]);
+            const daysEstimate = checked.length === 0 ? "1–2" : `${checked.length * 2}–${checked.length * 3 + 2}`;
+            document.getElementById('est-time-badge').textContent = currentLang === 'ua' ? `~${daysEstimate} дн.` : `~${daysEstimate} days`;
+
+            let briefText = '';
+            if (currentLang === 'ua') {
+                briefText = `Привіт, Luca! 👋\nЦікавить розробка рішення під ключ:\n\n` +
+                    (selectedLines.length ? selectedLines.join('\n') : '• Консультація щодо проєкту') +
+                    (note ? `\n\nЗадача / нішу: ${note}` : '') +
+                    `\n\nОрієнтовний термін: ~${daysEstimate} дн.\nДавай обговоримо деталі!`;
+            } else {
+                briefText = `Hi Luca! 👋\nI'm interested in a turnkey solution:\n\n` +
+                    (selectedLines.length ? selectedLines.join('\n') : '• Custom project consultation') +
+                    (note ? `\n\nProject details: ${note}` : '') +
+                    `\n\nEstimated timeline: ~${daysEstimate} days.\nLet's discuss the details!`;
+            }
+            document.getElementById('brief-output').textContent = briefText;
+        }
+
+        let fireworksInitialized = false;
+
+        function handleScrollCode() {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+
+            document.getElementById('scroll-progress-bar').style.width = scrollPercent + '%';
+            document.getElementById('scroll-percent-text').textContent = Math.round(scrollPercent) + '%';
+
+            const totalLines = allCodeLines.length;
+            const currentLineNum = Math.min(totalLines, Math.max(1, Math.floor((scrollPercent / 100) * totalLines) + 1));
+            document.getElementById('scroll-lines-text').textContent = String(currentLineNum).padStart(2, '0') + '/' + totalLines;
+
+            const streamEl = document.getElementById('bg-code-stream');
+            if (streamEl) {
+                const visibleLinesCount = 14;
+                const startIndex = Math.max(0, currentLineNum - visibleLinesCount);
+                let html = '';
+                for (let i = startIndex; i < currentLineNum; i++) {
+                    const lineNumStr = String(i + 1).padStart(2, '0');
+                    const isActive = (i === currentLineNum - 1);
+                    const lineClass = isActive ? 'code-line-active text-amber-200' : 'text-amber-300/60';
+                    html += `<div class="flex items-center gap-3 px-2 py-0.5 rounded ${lineClass}"><span class="text-amber-500/40 font-mono text-xs select-none">${lineNumStr}</span><span class="font-mono">${highlightLine(allCodeLines[i])}</span>${isActive ? '<span class="typing-cursor"></span>' : ''}</div>`;
+                }
+                streamEl.innerHTML = html;
+            }
+
+            const bgWrapper = document.getElementById('bg-code-wrapper');
+            const bgCodeStage = document.getElementById('bg-code-stage');
+            const bgThankYouBanner = document.getElementById('bg-thank-you-banner');
+            const isFullyDone = scrollPercent >= 94;
+
+            if (isFullyDone) {
+                isFinaleReached = true;
+                if (bgWrapper && !bgBoosted) bgWrapper.style.opacity = '0.9';
+                if (bgCodeStage) bgCodeStage.classList.add('code-stream-collapsed');
+                if (bgThankYouBanner) {
+                    bgThankYouBanner.classList.remove('opacity-0', 'scale-95');
+                    bgThankYouBanner.classList.add('opacity-100', 'scale-100');
+                }
+                if (!fireworksInitialized) {
+                    initFireworks();
+                    fireworksInitialized = true;
+                }
+            } else {
+                isFinaleReached = false;
+                if (bgWrapper && !bgBoosted) bgWrapper.style.opacity = '0.22';
+                if (bgCodeStage) bgCodeStage.classList.remove('code-stream-collapsed');
+                if (bgThankYouBanner) {
+                    bgThankYouBanner.classList.add('opacity-0', 'scale-95');
+                    bgThankYouBanner.classList.remove('opacity-100', 'scale-100');
+                }
+                fireworksInitialized = false;
+            }
+        }
+
+        function initFireworks() {
+            const canvas = document.getElementById('fireworks-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+
+            let particles = [];
+            const colors = ['#fbbf24', '#34d399', '#06b6d4', '#6366f1', '#f43f5e'];
+
+            function spawnFirework() {
+                const x = canvas.width * (0.25 + Math.random() * 0.5);
+                const y = canvas.height * (0.35 + Math.random() * 0.3);
+                const count = 40;
+                for (let i = 0; i < count; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = 2 + Math.random() * 6;
+                    particles.push({
+                        x: x, y: y,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed,
+                        alpha: 1,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        size: 2 + Math.random() * 2.5,
+                        decay: 0.012 + Math.random() * 0.018
+                    });
+                }
+            }
+
+            spawnFirework();
+            setTimeout(spawnFirework, 350);
+            setTimeout(spawnFirework, 800);
+
+            function loop() {
+                if (!isFinaleReached) return;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (Math.random() < 0.06 && particles.length < 120) {
+                    spawnFirework();
+                }
+                particles.forEach((p, index) => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.04;
+                    p.alpha -= p.decay;
+                    if (p.alpha <= 0) {
+                        particles.splice(index, 1);
+                        return;
+                    }
+                    ctx.save();
+                    ctx.globalAlpha = p.alpha;
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                });
+                requestAnimationFrame(loop);
+            }
+            loop();
+        }
+
+        function copyBrief() {
+            const text = document.getElementById('brief-output').textContent;
+            const tempArea = document.createElement('textarea');
+            tempArea.value = text;
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempArea);
+
+            const toast = document.getElementById('copy-toast');
+            if (toast) {
+                toast.textContent = currentLang === 'ua' ? '✓ Бриф скопійовано в буфер обміну!' : '✓ Brief copied to clipboard!';
+                toast.classList.remove('hidden');
+                setTimeout(() => toast.classList.add('hidden'), 3000);
+            }
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang === 'ua' ? 'uk' : 'en';
+
+            const btnUa = document.getElementById('lang-ua');
+            const btnEn = document.getElementById('lang-en');
+            if (lang === 'ua') {
+                btnUa.className = "px-2.5 py-1 text-xs font-mono font-semibold rounded-lg transition bg-cyan-500 text-gray-950";
+                btnEn.className = "px-2.5 py-1 text-xs font-mono font-semibold rounded-lg transition text-gray-400 hover:text-white";
+                document.getElementById('client-note').placeholder = "Наприклад: Кав'ярня у Києві, потрібен прийом замовлень у Telegram...";
+            } else {
+                btnEn.className = "px-2.5 py-1 text-xs font-mono font-semibold rounded-lg transition bg-cyan-500 text-gray-950";
+                btnUa.className = "px-2.5 py-1 text-xs font-mono font-semibold rounded-lg transition text-gray-400 hover:text-white";
+                document.getElementById('client-note').placeholder = "E.g., Local coffee shop, need automated order notifications in Telegram...";
+            }
+
+            const dict = translations[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.textContent = dict[key];
+                }
+            });
+
+            renderProjects();
+            updateBrief();
+            handleScrollCode();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setLanguage('ua');
+            lucide.createIcons();
+            window.addEventListener('scroll', handleScrollCode, { passive: true });
+            handleScrollCode();
+        });
+    </script>
+</body>
+</html>
